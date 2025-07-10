@@ -274,8 +274,7 @@ config_package_add luci-lib-ipkg
 #git_sparse_clone main https://github.com/linkease/istore luci
 #config_package_add luci-app-store
 
-#### 替换为中科大的源
-echo "备份并替换中科大的源"
+## 替换为中科大的源
 # 确保目录存在
 mkdir -p package/base-files/files/etc/opkg/
 # 备份原文件
