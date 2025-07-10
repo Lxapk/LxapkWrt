@@ -273,3 +273,20 @@ config_package_add luci-lib-ipkg
 ##git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser luci-app-ssr-mudb-server
 #git_sparse_clone main https://github.com/linkease/istore luci
 #config_package_add luci-app-store
+
+#### 替换为中科大的源
+echo "备份并替换中科大的源"
+# 确保目录存在
+mkdir -p package/base-files/files/etc/opkg/
+# 备份原文件
+[ -f package/base-files/files/etc/opkg/distfeeds.conf ] && cp package/base-files/files/etc/opkg/distfeeds.conf package/base-files/files/etc/opkg/distfeeds.conf.bak
+
+# 生成新的distfeeds.conf
+cat > package/base-files/files/etc/opkg/distfeeds.conf <<EOF
+src/gz immortalwrt_core https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/targets/x86/64/packages
+src/gz immortalwrt_base https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/packages/x86_64/base
+src/gz immortalwrt_luci https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/packages/x86_64/luci
+src/gz immortalwrt_packages https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/packages/x86_64/packages
+src/gz immortalwrt_routing https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/packages/x86_64/routing
+src/gz immortalwrt_telephony https://mirrors.ustc.edu.cn/immortalwrt/releases/$OpenWrt_VERSION/packages/x86_64/telephony
+EOF
