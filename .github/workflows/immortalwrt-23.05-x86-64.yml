@@ -1,4 +1,4 @@
-name: immortalwrt24.10 x86-64 Builder
+name: immortalwrt23.05 x86-64 Builder
 
 on:
   schedule:
