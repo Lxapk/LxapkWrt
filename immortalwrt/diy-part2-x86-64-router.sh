@@ -265,3 +265,5 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 config_package_add luci-app-taskplan
 config_package_add luci-lib-ipkg
+#设置向导
+#config_package_add luci-app-netwizard
