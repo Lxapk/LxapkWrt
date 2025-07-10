@@ -251,7 +251,7 @@ config_package_add luci-app-mosdns
 
 # 集成自己的插件包
 mkdir -p package/custom
-git clone --depth 1 https://github.com/Lxapk/OpenWrt-Packages.git package/custom
+git clone --depth 1 https://github.com/Lxapk/LxapkWrt-Packages.git package/custom
 clean_packages package/custom
 
 # golang
