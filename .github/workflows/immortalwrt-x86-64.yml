@@ -155,19 +155,11 @@ jobs:
           touch ${{ env.REPO_NAME }}-${{ env.OpenWrt_ARCH }}-release.txt
           echo "
           💻 架构: ${{ env.OpenWrt_ARCH }}
-
           📂 源码: ${{ env.REPO_URL }}
-
           🌳 分支: ${{ env.REPO_BRANCH }}
-
           ⏱️ 编译时间: ${{ env.COMPILE_DATE }}
-
           🌐 管理地址: 192.168.31.3 , 子网掩码: 255.255.255.0
-
-          👤 用户名: root
-
-          🔒 密码: 无 
-          
+          👤 用户名: root    🔒 密码: 无 
           " > ${{ env.REPO_NAME }}-${{ env.OpenWrt_ARCH }}-release.txt
           echo "status=success" >> ${GITHUB_OUTPUT}
 
