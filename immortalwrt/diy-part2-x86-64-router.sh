@@ -267,3 +267,7 @@ config_package_add luci-app-taskplan
 config_package_add luci-lib-ipkg
 #设置向导
 #config_package_add luci-app-netwizard
+## iStore 应用市场 只支持 x86_64 和 arm64 设备
+##git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser luci-app-ssr-mudb-server
+#git_sparse_clone main https://github.com/linkease/istore luci
+#config_package_add luci-app-store
