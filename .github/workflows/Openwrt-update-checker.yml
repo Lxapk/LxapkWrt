@@ -1,0 +1,62 @@
+name: Openwrt Update Checker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 20 * * *
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - repo: immortalwrt/immortalwrt
+            branch: openwrt-24.10
+            hash_key: immortalwrt_commitHash
+            event: immortalwrt-update
+          - repo: padavanonly/immortalwrt-mt798x-24.10
+            branch: "2410"
+            hash_key: mt798x_commitHash
+            event: mt798x-update
+
+    steps:
+    - name: Get commit hash
+      id: getHash
+      run: |
+        git clone -b ${{ matrix.branch }} --single-branch --depth 1 https://github.com/${{ matrix.repo }} openwrt
+        cd openwrt
+        echo "${{ matrix.hash_key }}=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Compare commit hash
+      id: cacheHash
+      uses: actions/cache@v4
+      with:
+        path: .${{ matrix.hash_key }}
+        key: ${{ matrix.hash_key }}_${{ steps.getHash.outputs[matrix.hash_key] }}
+
+    - name: Save new commit hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs[matrix.hash_key] }} | tee .${{ matrix.hash_key }}
+
+    - name: Create a repository dispatch event
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        event-type: ${{ matrix.event }}
+
+  del_runs:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 1
+          keep_minimum_runs: 1
