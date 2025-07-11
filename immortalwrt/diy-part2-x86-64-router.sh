@@ -286,7 +286,7 @@ if [[ "$OpenWrt_VERSION" == 24.* ]]; then
 elif [[ "$OpenWrt_VERSION" == 23.* ]]; then
     VERSION="23.05-SNAPSHOT"
 else
-    VERSION="$OpenWrt_VERSION"
+    VERSION="24.10-SNAPSHOT"
 fi
 
 # 生成配置文件
