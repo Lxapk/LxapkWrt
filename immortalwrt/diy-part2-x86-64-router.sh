@@ -273,28 +273,3 @@ config_package_add luci-lib-ipkg
 ##git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser luci-app-ssr-mudb-server
 #git_sparse_clone main https://github.com/linkease/istore luci
 #config_package_add luci-app-store
-
-## 替换为腾讯源
-# 确保目录存在并清理旧文件
-mkdir -p package/base-files/files/etc/opkg/
-rm -f package/base-files/files/etc/opkg/distfeeds.conf{,.bak}
-
-# 设置版本号
-if [[ "$OpenWrt_VERSION" == 24.* ]]; then
-    VERSION="24.10-SNAPSHOT"
-elif [[ "$OpenWrt_VERSION" == 23.* ]]; then
-    VERSION="23.05-SNAPSHOT"
-else
-    VERSION="24.10-SNAPSHOT"
-fi
-
-# 生成配置文件
-cat > package/base-files/files/etc/opkg/distfeeds.conf <<EOF
-src/gz openwrt_core https://mirrors.cloud.tencent.com/lede/releases/$VERSION/targets/x86/64/packages/
-src/gz openwrt_base https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/base/
-src/gz openwrt_luci https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/luci/
-src/gz openwrt_packages https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/packages/
-src/gz openwrt_routing https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/routing/
-EOF
-
-echo "已生成软件源配置文件: $VERSION"
