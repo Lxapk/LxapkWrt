@@ -274,34 +274,28 @@ config_package_add luci-lib-ipkg
 #git_sparse_clone main https://github.com/linkease/istore luci
 #config_package_add luci-app-store
 
-## 替换为中科大的源
-# 确保目录存在
+## 替换为腾讯源
+
+# 确保目录存在并清理旧文件
 mkdir -p package/base-files/files/etc/opkg/
+rm -f package/base-files/files/etc/opkg/distfeeds.conf{,.bak}
 
-# 删除原文件和备份文件
-rm -f package/base-files/files/etc/opkg/distfeeds.conf
-rm -f package/base-files/files/etc/opkg/distfeeds.conf.bak
-
-# 根据版本号设置具体版本
+# 设置版本号
 if [[ "$OpenWrt_VERSION" == 24.* ]]; then
-    VERSION="24.10.2"
-    echo "检测到24.x版本，使用24.10.2"
+    VERSION="24.10-SNAPSHOT"
 elif [[ "$OpenWrt_VERSION" == 23.* ]]; then
-    VERSION="23.05.4"
-    echo "检测到23.x版本，使用23.05.4"
+    VERSION="23.05-SNAPSHOT"
 else
-    VERSION="24.10.2"  # 直接使用版本号
-    echo "使用指定版本号: $VERSION"
+    VERSION="$OpenWrt_VERSION"
 fi
 
-# 生成新的distfeeds.conf
+# 生成配置文件
 cat > package/base-files/files/etc/opkg/distfeeds.conf <<EOF
-src/gz immortalwrt_core https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/targets/x86/64/packages
-src/gz immortalwrt_base https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/base
-src/gz immortalwrt_luci https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/luci
-src/gz immortalwrt_packages https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/packages
-src/gz immortalwrt_routing https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/routing
-src/gz immortalwrt_telephony https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/telephony
+src/gz openwrt_core https://mirrors.cloud.tencent.com/lede/releases/$VERSION/targets/x86/64/packages/
+src/gz openwrt_base https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/base/
+src/gz openwrt_luci https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/luci/
+src/gz openwrt_packages https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/packages/
+src/gz openwrt_routing https://mirrors.cloud.tencent.com/lede/releases/$VERSION/packages/x86_64/routing/
 EOF
 
-echo "已生成配置文件，使用版本: $VERSION"
+echo "已生成软件源配置文件: $VERSION"
