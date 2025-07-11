@@ -275,8 +275,6 @@ config_package_add luci-lib-ipkg
 #config_package_add luci-app-store
 
 ## 替换为中科大的源
-#!/bin/bash
-
 # 确保目录存在
 mkdir -p package/base-files/files/etc/opkg/
 
@@ -285,12 +283,15 @@ rm -f package/base-files/files/etc/opkg/distfeeds.conf
 rm -f package/base-files/files/etc/opkg/distfeeds.conf.bak
 
 # 根据版本号设置具体版本
-if [ "$OpenWrt_VERSION" = "24.10" ]; then
+if [[ "$OpenWrt_VERSION" == 24.* ]]; then
     VERSION="24.10.2"
-elif [ "$OpenWrt_VERSION" = "23.05" ]; then
+    echo "检测到24.x版本，使用24.10.2"
+elif [[ "$OpenWrt_VERSION" == 23.* ]]; then
     VERSION="23.05.4"
+    echo "检测到23.x版本，使用23.05.4"
 else
-    VERSION="$OpenWrt_VERSION"  # 直接使用传入的版本号
+    VERSION="24.10.2"  # 直接使用版本号
+    echo "使用指定版本号: $VERSION"
 fi
 
 # 生成新的distfeeds.conf
@@ -303,4 +304,4 @@ src/gz immortalwrt_routing https://mirrors.ustc.edu.cn/immortalwrt/releases/$VER
 src/gz immortalwrt_telephony https://mirrors.ustc.edu.cn/immortalwrt/releases/$VERSION/packages/x86_64/telephony
 EOF
 
-echo "已生成配置文件使用版本: $VERSION"
+echo "已生成配置文件，使用版本: $VERSION"
