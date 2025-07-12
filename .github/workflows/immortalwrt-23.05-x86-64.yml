@@ -2,7 +2,7 @@ name: immortalwrt23.05 x86-64 Builder
 
 on:
   schedule:
-    - cron: 0 20 * * 0
+    - cron: 0 20 * * 1
   workflow_dispatch:
   repository_dispatch:
     types: [immortalwrt-update]
