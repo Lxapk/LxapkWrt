@@ -7,7 +7,7 @@
 
 ## 📦 官方资源  
 - **源码仓库**：[github.com/immortalwrt/immortalwrt](https://github.com/immortalwrt/immortalwrt)  
-- **固件下载**：  -[官方下载站](https://downloads.immortalwrt.org/)  -[固件选择器](https://firmware-selector.immortalwrt.org/)  
+- **固件下载**：  [官方下载站](https://downloads.immortalwrt.org/)  - [固件选择器](https://firmware-selector.immortalwrt.org/)  
 
 ---
 
