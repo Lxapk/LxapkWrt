@@ -145,19 +145,18 @@ default_packages=(
     "kmod-nf-nat6"
     "kmod-nft-compat"
     "ip6tables-nft"
-    "ipset"
+    "miniupnpd-nftables"
     "iptables-mod-iprange"
     "iptables-mod-tproxy"
     "iptables-nft"
     "ipv6helper"
     "libipset"
-    "libmount"
     "libpci"
     "libxtables"
     "libyaml"
     "lsblk"
-    "miniupnpd-nftables"
-    "openssh-sftp-server"
+    "ipset"
+
 )
 # 循环调用 config_package_add 函数
 for package in "${default_packages[@]}"; do
