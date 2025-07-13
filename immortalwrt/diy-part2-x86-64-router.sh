@@ -157,8 +157,6 @@ default_packages=(
     "libyaml"
     "lsblk"
     "miniupnpd-nftables"
-    "open-vm-tools"
-    "open-vm-tools-fuse"
     "openssh-sftp-server"
 )
 # 循环调用 config_package_add 函数
@@ -252,8 +250,10 @@ config_package_add luci-app-vlmcsd
 config_package_add luci-app-smartdns
 
 #硬件及驱动
-# 虚拟机支持
-config_package_add qemu-ga
+# 虚拟机支持qemu/vm
+#config_package_add qemu-ga
+config_package_add open-vm-tools
+config_package_add open-vm-tools-fuse
 
 #### 第三方软件包
 # 一个适用于官方openwrt(22.03/23.05/24.10) firewall4的turboacc
