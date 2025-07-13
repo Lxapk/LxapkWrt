@@ -1,4 +1,4 @@
-name: immortalwrt24.10 x86-64 Builder
+name: immortalwrt23.05 x86-64 Builder
 
 on:
   schedule:
@@ -136,15 +136,13 @@ jobs:
       - name: 整理固件
         if: steps.compile.outputs.status == 'success' && !cancelled()
         run: |
-          cp -rf openwrt/.config ${{ env.FIRMWARE }}/config
           cd ${{ env.FIRMWARE }}
           rm -rf packages
           rm -rf profiles.json
           rm -rf *.buildinfo
           rm -rf *.manifest
           rm -rf *kernel.bin
-          rm -rf *squashfs-rootfs.img.gz
-          mv immortalwrt-${{ env.OpenWrt_ARCH }}-generic-rootfs.tar.gz immortalwrt-${{ env.OpenWrt_VERSION }}-${{ env.OpenWrt_ARCH }}-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
+          rm -rf *squashfs-rootfs*.img.gz
           mv immortalwrt-${{ env.OpenWrt_ARCH }}-generic-squashfs-combined-efi.img.gz immortalwrt-${{ env.OpenWrt_VERSION }}-${{ env.OpenWrt_ARCH }}-generic-squashfs-combined-efi-${{ env.COMPILE_DATE }}.img.gz
           echo -e "------------------------------- 文件列表 -------------------------------"
           ls
