@@ -248,8 +248,8 @@ config_package_add luci-app-vlmcsd
 # smartdns
 config_package_add luci-app-smartdns
 
-#硬件及驱动
-# 虚拟机支持qemu/vm
+# 虚拟机支持
+#PVE选qemu/Esxi选vm-tools
 #config_package_add qemu-ga
 config_package_add open-vm-tools
 config_package_add open-vm-tools-fuse
