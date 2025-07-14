@@ -245,6 +245,24 @@ config_package_add luci-app-nikki
 git clone https://github.com/xiaorouji/openwrt-passwall
 config_package_add luci-app-passwall
 
+# OpenClash 透明代理
+git_sparse_clone master https://github.com/vernesong/OpenClash.git luci-app-openclash
+config_package_add luci-app-openclash
+
+# 确保 po2lmo 工具存在
+if ! command -v po2lmo &> /dev/null; then
+    if [ -d "package/luci-app-openclash/tools/po2lmo" ]; then
+        (cd package/luci-app-openclash/tools/po2lmo && make -j$(nproc))
+        sudo cp package/luci-app-openclash/tools/po2lmo/po2lmo /usr/local/bin/
+    else
+        sudo wget https://raw.githubusercontent.com/openwrt/luci/openwrt-22.03/libs/liblua/po2lmo \
+            -O /usr/local/bin/po2lmo
+        sudo chmod +x /usr/local/bin/po2lmo
+    fi
+fi
+
+config_package_add luci-app-openclash
+
 # adguardhome 文件管理fileassistant
 git_sparse_clone main https://github.com/kenzok8/small-package luci-app-adguardhome luci-app-fileassistant
 config_package_add luci-app-adguardhome
