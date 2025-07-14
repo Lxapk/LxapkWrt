@@ -69,7 +69,7 @@ function git_sparse_clone() {
 }
 
 ##########################
-#设置官方默认包+网络优化https://downloads.immortalwrt.org/releases/23.05.#/targets/x86/64/profiles.json
+#设置官方默认包+网络优化https://downloads.immortalwrt.org/releases/23.05.4/targets/x86/64/profiles.json
 default_packages=(
     # 基础包
     "autocore"
