@@ -84,7 +84,6 @@ default_packages=(
     "firewall4"
     "fstools"
     "grub2-bios-setup"
-    "i915-firmware-dmc"
     "kmod-8139cp"
     "kmod-8139too"
     "kmod-button-hotplug"
