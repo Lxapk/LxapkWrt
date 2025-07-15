@@ -13,9 +13,9 @@ env:
   REPO_BRANCH: openwrt-23.05
   OpenWrt_VERSION: 23.05
   OpenWrt_ARCH: x86-64
-  CLASH_KERNEL: amd64
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
+  CLASH_KERNEL: amd64
   DIY_P1_SH: immortalwrt/diy-part1-x86-64.sh
   DIY_P2_SH: immortalwrt/diy-part2-23.x-x86-64-router.sh
   TZ: Asia/Shanghai
