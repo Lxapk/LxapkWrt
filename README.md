@@ -24,10 +24,14 @@
 
 ### 🛠️ 服务功能  
 ```markdown
-✅ UPnP 自动端口映射  
+✅ UPnP 自动端口映射
+✅ AdGuard Home 广告拦截
+✅ MosDNS
+✅ SmartDNS
 ✅ TTYD 网页终端控制台  
 ✅ KMS 激活服务
-✅ passwall  
+✅ passwall
+✅ OpenClash
 ✅ Nikki 网络工具箱  
 ✅ TaskPlan 多功能定时任务  
 ✅ TurboAcc 网络加速引擎  
