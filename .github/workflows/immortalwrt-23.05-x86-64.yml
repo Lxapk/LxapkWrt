@@ -101,6 +101,7 @@ jobs:
       
       - name: 加载自定义配置
         run: |
+          chmod +x ${GITHUB_WORKSPACE}/${DIY_CLASH_SH}
           chmod +x ${DIY_P2_SH}
           cd openwrt
           ${GITHUB_WORKSPACE}/${DIY_P2_SH}
