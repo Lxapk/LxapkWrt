@@ -280,7 +280,7 @@ config_package_add luci-lib-ipkg
 #设置向导
 #config_package_add luci-app-netwizard
 
-# OpenClash 透明代理
+# OpenClash
 config_package_add luci-app-openclash
 
 ## iStore 应用市场 只支持 x86_64 和 arm64 设备
