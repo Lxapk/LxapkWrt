@@ -18,6 +18,7 @@ env:
   CLASH_KERNEL: amd64
   DIY_P1_SH: immortalwrt/diy-part1-x86-64.sh
   DIY_P2_SH: immortalwrt/diy-part2-24.x-x86-64-router.sh
+  DIY_CLASH_SH: immortalwrt/preset-clash-core.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -100,10 +101,11 @@ jobs:
       
       - name: 加载自定义配置
         run: |
+          chmod +x ${GITHUB_WORKSPACE}/${DIY_CLASH_SH}
           chmod +x ${DIY_P2_SH}
           cd openwrt
           ${GITHUB_WORKSPACE}/${DIY_P2_SH}
-          $GITHUB_WORKSPACE/immortalwrt/preset-clash-core.sh $CLASH_KERNEL
+          ${GITHUB_WORKSPACE}/${DIY_CLASH_SH} $CLASH_KERNEL
       - name: 下载软件包
         id: package
         run: |
