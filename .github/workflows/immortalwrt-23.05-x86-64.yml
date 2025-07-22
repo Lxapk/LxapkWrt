@@ -5,7 +5,7 @@ on:
     - cron: 0 20 * * 1
   workflow_dispatch:
   repository_dispatch:
-    types: [immortalwrt-update]
+    types: [immortalwrt-23-05-update]
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
