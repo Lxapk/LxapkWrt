@@ -12,13 +12,13 @@ jobs:
       matrix:
         include:
           - repo: immortalwrt/immortalwrt
+            branch: openwrt-23.05
+            hash_key: immortalwrt_23_05_commitHash
+            event: immortalwrt-23-05-update
+          - repo: immortalwrt/immortalwrt
             branch: openwrt-24.10
-            hash_key: immortalwrt_commitHash
-            event: immortalwrt-update
-          - repo: padavanonly/immortalwrt-mt798x-24.10
-            branch: "2410"
-            hash_key: mt798x_commitHash
-            event: mt798x-update
+            hash_key: immortalwrt_24_10_commitHash
+            event: immortalwrt-24-10-update
 
     steps:
     - name: Get commit hash
