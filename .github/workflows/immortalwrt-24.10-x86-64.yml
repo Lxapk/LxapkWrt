@@ -1,7 +1,6 @@
 name: immortalwrt24.10 x86-64 Builder
 
 on:
-  schedule:
   workflow_dispatch:
   repository_dispatch:
     types: [immortalwrt-24-10-update]
