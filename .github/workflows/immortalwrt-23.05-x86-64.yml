@@ -9,7 +9,7 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_NAME: immortalwrt
   REPO_BRANCH: openwrt-23.05
-  OpenWrt_VERSION: 23.05
+  OpenWrt_VERSION: "23.05"
   OpenWrt_ARCH: x86-64
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
