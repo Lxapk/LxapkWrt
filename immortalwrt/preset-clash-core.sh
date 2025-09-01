@@ -1,19 +1,10 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
-mkdir -p files/etc/openclash/core
+CORE_DIR="files/etc/openclash/core"
+mkdir -p "$CORE_DIR"
 
-open_clash_main_url=$(curl -sL https://api.github.com/repos/vernesong/OpenClash/releases/tags/Clash | grep /clash-linux-$1 | sed 's/.*url\": \"//g' | sed 's/\"//g')
-clash_tun_url=$(curl -sL https://api.github.com/repos/vernesong/OpenClash/releases/tags/TUN-Premium | grep /clash-linux-$1 | sed 's/.*url\": \"//g' | sed 's/\"//g')
-clash_game_url=$(curl -sL https://api.github.com/repos/vernesong/OpenClash/releases/tags/TUN | grep /clash-linux-$1 | sed 's/.*url\": \"//g' | sed 's/\"//g')
+wget -qO- "https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-${1}.tar.gz" \
+| tar -xzO > "$CORE_DIR/clash_meta"
 
-wget -qO- $open_clash_main_url | tar xOvz > files/etc/openclash/core/clash
-wget -qO- $clash_tun_url | gunzip -c > files/etc/openclash/core/clash_tun
-wget -qO- $clash_game_url | tar xOvz > files/etc/openclash/core/clash_game
-
-GEOIP_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-GEOSITE_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-
-wget -qO- $GEOIP_URL > files/etc/openclash/GeoIP.dat
-wget -qO- $GEOSITE_URL > files/etc/openclash/GeoSite.dat
-
-chmod +x files/etc/openclash/core/clash*
+chmod +x "$CORE_DIR"/clash*
