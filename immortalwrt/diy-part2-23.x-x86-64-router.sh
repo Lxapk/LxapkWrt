@@ -281,6 +281,7 @@ config_package_add luci-lib-ipkg
 #config_package_add luci-app-netwizard
 
 # OpenClash
+git clone --depth=1 https://github.com/vernesong/OpenClash.git package/openclash
 config_package_add luci-app-openclash
 
 ## iStore 应用市场 只支持 x86_64 和 arm64 设备
