@@ -1,0 +1,95 @@
+name: Openwrt Default Config
+
+on:
+  workflow_dispatch:   # 允许手动触发
+    inputs:
+      repo_name:
+        description: '源码仓库名称'
+        required: true
+        default: 'immortalwrt'
+        type: string
+      repo_url:
+        description: '源码仓库地址'
+        required: true
+        default: 'https://github.com/immortalwrt/immortalwrt'
+        type: string
+      repo_branch:
+        description: '源码仓库分支'
+        required: true
+        default: 'openwrt-24.10'
+        type: string
+      ssh:
+        description: 'SSH远程配置固件'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+
+    - name: 显示输入信息
+      run: |
+        echo -e "------------------------------- 输入信息 -------------------------------"
+        echo -e "源码仓库名称: ${{ inputs.repo_name }}"
+        echo -e "源码仓库地址: ${{ inputs.repo_url }}"
+        echo -e "源码仓库分支: ${{ inputs.repo_branch }}"
+        echo -e "SSH远程配置固件: ${{ inputs.ssh }}"
+
+    - name: 检查磁盘检使用情况
+      if: (!cancelled())
+      run: df -hT
+
+    - name: 准备完成
+      uses: actions/checkout@main
+
+    - name: 初始化编译环境
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -qq update
+        sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "${TZ}"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: 下载固件源码
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone -b ${{ inputs.repo_branch }} --single-branch --depth 1 ${{ inputs.repo_url }} openwrt
+        ln -sf /workdir/openwrt ${GITHUB_WORKSPACE}/openwrt
+
+    - name: 更新 feeds
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: 安装 feeds
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: SSH 连接到 Actions（cd openwrt && make menuconfig 结束ctrl+d）
+      if: github.event.inputs.ssh == 'true'
+      uses: P3TERX/ssh2actions@main
+
+    - name: 生成config配置文件
+      run: |
+        cd openwrt
+        make defconfig
+        cp .config template.config
+        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+
+    - name: 上传配置文件到 Github Artifacts
+      uses: actions/upload-artifact@main
+      with:
+        name: template.config_${{ inputs.repo_name }}_${{ inputs.repo_branch }}_${{ env.FILE_DATE }}
+        path: openwrt/template.config
+
