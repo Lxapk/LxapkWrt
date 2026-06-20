@@ -67,7 +67,10 @@ function git_sparse_clone() {
   mv -f $@ ../package
   cd .. && rm -rf $repodir
 }
-
+# 强制指定目标平台为 x86-64
+config_add TARGET_x86_64
+config_add TARGET_x86_64_GENERIC
+config_add TARGET_x86_64_GENERIC_EFI
 ##########################
 #设置官方默认包+网络优化https://downloads.immortalwrt.org/releases/23.05.4/targets/x86/64/profiles.json
 default_packages=(
@@ -273,7 +276,7 @@ mv package/custom/golang feeds/packages/lang/
 config_package_add luci-theme-argon
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
-# 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
+# 定时任务等功能
 config_package_add luci-app-taskplan
 config_package_add luci-lib-ipkg
 
