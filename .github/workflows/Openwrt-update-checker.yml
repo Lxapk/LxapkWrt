@@ -19,6 +19,10 @@ jobs:
             branch: openwrt-24.10
             hash_key: immortalwrt_24_10_commitHash
             event: immortalwrt-24-10-update
+          - repo: immortalwrt/immortalwrt
+            branch: openwrt-25.12
+            hash_key: immortalwrt_25_12_commitHash
+            event: immortalwrt-25-12-update
 
     steps:
     - name: Get commit hash
