@@ -67,10 +67,15 @@ function git_sparse_clone() {
   mv -f $@ ../package
   cd .. && rm -rf $repodir
 }
-# 强制指定目标平台为 x86-64
-config_add TARGET_x86_64
-config_add TARGET_x86_64_GENERIC
-config_add TARGET_x86_64_GENERIC_EFI
+# 强制指定目标平台为 x86-64（修复因默认配置导致的架构错误）
+cat >> .config <<-EOF
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_GENERIC=y
+CONFIG_TARGET_x86_64_GENERIC_EFI=y
+EOF
+# 运行 oldconfig 处理新增选项，避免后续 defconfig 重置
+yes "" | make oldconfig
 ##########################
 #设置官方默认包+网络优化https://downloads.immortalwrt.org/releases/24.10.2/targets/x86/64/profiles.json
 default_packages=(
